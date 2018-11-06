@@ -27,7 +27,7 @@
                     { brand: 'Bear', name: 'T-Shirt The Bear', image: require("../assets/images/bear-blue.jpg"), price: 10, color:"blue"},
                     { brand: 'Wiki', name: 'T-Shirt WikiPedia', image: require("../assets/images/blue-wiki.jpg"), price: 20, color:"blue"},
                     { brand: 'Dragon Ball z', name: 'T-Shirt Dragon Ball Z ', image: require("../assets/images/dbz-black.jpg"), price: 23, color:"black"  },
-                    { brand: 'Geek', name: 'T-Shirt Geek', image: require("../assets/images/geek-green.jpg"), price: 25, color:"green"  },
+                    { brand: 'Bear', name: 'T-Shirt Geek', image: require("../assets/images/geek-green.jpg"), price: 25, color:"green"  },
                     { brand: 'Nintendo', name: 'T-Shirt Mario Bros', image: require("../assets/images/mario-white.jpg"), price: 55, color:"white"  },
                     { brand: 'Petanque', name: 'T-Shirt Pétanque', image: require("../assets/images/petanque-blue-red.jpg"), price: 75, color:"red"  },
                     { brand: 'Dieudonné', name: 'T-Shirt Dieudonné', image: require("../assets/images/purple-gooze.jpg"), price: 150, color:"purple"  },

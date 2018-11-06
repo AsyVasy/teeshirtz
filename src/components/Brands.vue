@@ -38,7 +38,7 @@ export default {
             this.products = produits
             })
         this.$ebus.$on("reset-filter", brandsFilter => {
-            this.brandsFilter = []
+            this.brandsFilter = ["hello"]
         })
     },
     updated() {
