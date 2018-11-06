@@ -100,7 +100,7 @@ button {
     width: 150px;
     height: 50px;
     transition: .5s;
-    background: rgba($color: black, $alpha: 0.5);
+    background: rgba($color: pink, $alpha: 0.5);
     border-radius: 10px
 
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="produits" v-for="(produit, n) in produits" :key="n" v-if="produit.price <= prix">
-            <div v-for="(brand, m) in byBrands" :key="m" v-if="brand === produit.brand">
+            <div v-for="(brand, m) in byBrands" :key="m" v-if="brand === produit.brand || byBrands.length === 1">
                 <div class="card">
                     <img class="cardimg" :src="produit.image" :alt="produit.name">
                     <div class="cardcontain">

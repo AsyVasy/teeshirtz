@@ -11,7 +11,7 @@ export default {
     data() {
         return {
             products: "",
-            brandsFilter : []
+            brandsFilter : ["hello"]
         }
     },
     methods: {
