@@ -2,9 +2,16 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/tshirtz">Tshirtz</router-link>
+      <router-link to="/tshirtz">Tshirtz</router-link> |
+      <router-link to="/admin">Admin</router-link>
     </div>
-    <router-view/>
+
+
+    <div class="container">
+       <transition name="moveInUp">
+         <router-view/>
+       </transition>  
+    </div>
   </div>
 </template>
 
@@ -20,6 +27,7 @@
     text-align: center;
     height: auto;
     font-size: 25px;
+    z-index: 10000;
 
   padding: 30px;
   a {
@@ -30,4 +38,32 @@
     }
   }
 }
+.moveInUp-enter-active{
+  animation: fadeIn .7s ease-in;
+}
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+  }
+  
+  100%{
+    opacity: 1;
+  }
+}
+.moveInUp-leave-active{
+  animation: moveInUp .3s ease-in;
+}
+@keyframes moveInUp{
+ 0%{
+  transform: translate(0);
+  opacity: 1;
+ }
+  100%{
+  transform: translate(-1000px);
+  opacity: 0;
+ }
+}
+
+
+
 </style>

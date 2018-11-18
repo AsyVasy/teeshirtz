@@ -1,27 +1,32 @@
 <template>
      <div class="brands">
             <ul>
-                <li v-for="(produit, n) in products" :key="n"><input checked :id="n" type="checkbox"   autofocus  :value="produit.brand" v-model="brandsFilter">{{produit.brand}}</li>
+                <li v-for="(elm, n) in brands.data[1]" :key="n"><input checked :id="n" type="checkbox"   autofocus  :value="elm.id" v-model="brandsFilter">{{elm.name}}</li>
             </ul>
      </div>
 </template>
 
 <script>
 export default {
+    computed: {
+            products() {
+                return this.$store.getters.displayProducts;
+            },
+            brands() {
+                return this.$store.getters.displayBrands;
+                }
+        },
     data() {
         return {
-            products: "",
             brandsFilter : ["hello"]
         }
     },
     methods: {
-        test2(id) {
-            var test = document.getElementById(id);
-            console.log(this.brandsFilter)
-        },
-        test() {
-            console.log(this.brandsFilter)
-        },
+        
+        test2() {
+            console.log(this.brands)
+        }
+       
         // filter(i, brandToFilter) {
         //     this.brandsFilter.forEach(function(element) {
         //         if (element === this.products[i]) {
@@ -34,10 +39,10 @@ export default {
         // }
     },
     created() {
-        this.$ebus.$on("send-produits", produits => {
-            this.products = produits
-            })
-        this.$ebus.$on("reset-filter", brandsFilter => {
+        this.$store.dispatch("getProducts")
+        this.$store.dispatch("getBrands")
+        
+        this.$ebus.$on("reset-filter", () => {
             this.brandsFilter = ["hello"]
         })
     },
@@ -64,7 +69,5 @@ export default {
                 }
             }
         }
-    }
-    
-    
+    } 
 </style>

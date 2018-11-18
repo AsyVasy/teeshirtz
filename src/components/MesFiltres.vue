@@ -5,22 +5,21 @@
         <Reset></Reset>
         <hr>
         <Price></Price>
-        <p>{{prix}} €</p>
         <hr>
         <Brands></Brands>
         <hr>
-        <Color></Color>
-        <hr>
+        <!-- <Color></Color>
+        <hr> -->
     </div>
     </div>
 </template>
 
 <script>
 
-import Reset from "@/components/Reset.vue"
-import Price from "@/components/Price.vue"
-import Brands from "@/components/Brands.vue"
-import Color from "@/components/Color.vue"
+import Reset from "@/components/filterComponents/Reset.vue"
+import Price from "@/components/filterComponents/Price.vue"
+import Brands from "@/components/filterComponents/Brands.vue"
+// import Color from "@/components/Color.vue"
 
 
 export default {
@@ -28,28 +27,12 @@ export default {
         Reset,
         Price,
         Brands,
-        Color
+        // Color
     },
 
 
 
-    created() {
-        this.$ebus.$on("send-price", price => {
-            this.prix = price;
-            console.log(price);
-            console.log(this.prix)
-        }),
-        this.$ebus.$on("reset-filter", price => {
-            this.prix = 150;
-        })
-    },
-
-
-    data () {
-        return {
-            prix: ""
-        }
-    },
+    
 
     methods: {
         test() {
@@ -100,7 +83,7 @@ button {
     width: 150px;
     height: 50px;
     transition: .5s;
-    background: rgba($color: pink, $alpha: 0.5);
+    background: rgba($color: snow, $alpha: 0.5);
     border-radius: 10px
 
 }

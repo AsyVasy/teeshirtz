@@ -1,68 +1,76 @@
 <template>
-    <div class="container">
-        <div class="produits" v-for="(produit, n) in produits" :key="n" v-if="produit.price <= prix">
-            <div v-for="(brand, m) in byBrands" :key="m" v-if="brand === produit.brand || byBrands.length === 1">
-                <div class="card">
-                    <img class="cardimg" :src="produit.image" :alt="produit.name">
-                    <div class="cardcontain">
-                        <h4 class="cardtitle">{{produit.name}}</h4>
-                        <div class="cardtext">{{produit.price}}€</div>
+<div class="container">
+     <div class="produits" v-for="(produit, n) in products.data[1]" :key="n">
+        <div v-if="produit.price <= prix">
+            <div v-for="(brand, m) in byBrands" :key="m">
+                <div v-if="brand === produit.id_brand || byBrands.length === 1">
+                    <div class="card">
+                        <img class="cardimg" :src="produit.url_image" :alt="produit.name">
+                        <div class="cardcontain" @click="test(produit)">
+                            <h4 class="cardtitle">{{produit.name}}</h4>
+                            <!-- <h4 class="cardtitle"><router-link :to="`/detail`" target="_blank" @click="setDetail(produit)" >{{produit.name}}</router-link></h4> -->
+                            <div class="cardtext">{{produit.price}}€
+                        
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
-            
-            </div>
-            
         </div>
     </div>
+</div>
 </template>
 
 <script>
     export default {
+
+        computed: {
+            products() {
+                return this.$store.getters.displayProducts;
+            },
+        },
         
         data() {
             return {
-                produits: [
-                    { brand: 'Bear', name: 'T-Shirt The Bear', image: require("../assets/images/bear-blue.jpg"), price: 10, color:"blue"},
-                    { brand: 'Wiki', name: 'T-Shirt WikiPedia', image: require("../assets/images/blue-wiki.jpg"), price: 20, color:"blue"},
-                    { brand: 'Dragon Ball z', name: 'T-Shirt Dragon Ball Z ', image: require("../assets/images/dbz-black.jpg"), price: 23, color:"black"  },
-                    { brand: 'Bear', name: 'T-Shirt Geek', image: require("../assets/images/geek-green.jpg"), price: 25, color:"green"  },
-                    { brand: 'Nintendo', name: 'T-Shirt Mario Bros', image: require("../assets/images/mario-white.jpg"), price: 55, color:"white"  },
-                    { brand: 'Petanque', name: 'T-Shirt Pétanque', image: require("../assets/images/petanque-blue-red.jpg"), price: 75, color:"red"  },
-                    { brand: 'Dieudonné', name: 'T-Shirt Dieudonné', image: require("../assets/images/purple-gooze.jpg"), price: 150, color:"purple"  },
-                    { brand: 'DC', name: 'T-Shirt Superman', image: require("../assets/images/superman-blue.jpg"), price: 12, color:"blue"  },
-                    { brand: 'Unkut', name: 'T-Shirt Unkut rouge', image: require("../assets/images/unkut-red.jpg"), price: 7, color:"red"  },
-                ],
+
                 prix : 150,
                 byBrands : [],
                 byColor: [],
-                
-
-           }
+                detailWeWant: ["coucou"]
+                }
         },
         methods: {
-                    test() {
-                        console.log(this.byColor)
-                    }
-                },
+
+            test(produit) {
+                this.detailWeWant = produit;
+                console.log(this.detailWeWant);
+                this.$router.push({name:'detail',params:{produit}})
+            },
+
+            setDetail(produit) {
+            this.detailWeWant = produit;
+            this.$ebus.$emit("send-detail", this.detailWeWant)
+            },
+        },
         created() {
+            this.$store.dispatch("getProducts")
+
             this.$ebus.$on("send-price", price => {
                 this.prix = price;
             });
+
             this.$ebus.$on("send-brandsFilter", brandsFilter => {
-                this.byBrands = brandsFilter;
-
-            });
+                this.byBrands = brandsFilter;});
             
-
             this.$ebus.$emit("send-produits", this.produits)
         },
+
         updated() {
             this.$ebus.$on("send-colorFilter", colorFilter => {
                 this.byColor = colorFilter;
-
             });
+            
+            this.$ebus.$emit("send-detail", this.detailWeWant)
         },
         
         
@@ -85,7 +93,8 @@
         .produits {
             background: white;
             height: 230px;
-            
+            cursor: pointer;
+
             
             .card {
                 border: 2px solid;
@@ -96,12 +105,29 @@
                 justify-content: center;;
                 align-items: center;
                 text-align: center;
+                
+
+                .cardcontain {
+                    transition: .5s
+                }
+                .cardcontain:hover {
+                    color: #42b983;;
+                    transition: .5s;
+                    background: rgba($color: grey, $alpha: 0.2);;
+                    border-radius: 10px
+                }
 
                 
                 .cardimg {
                     width: 100px;
-                   
+                    transition: .5s
                 }
+                .cardimg:hover {
+                    transform: scale(1.8); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+                    transition: .5s;
+                    border-radius: 10px;
+                    border: solid 2px black
+                    }                   
             }
             .card:hover {
                 box-shadow: 0 10px 16px 0 rgba(0,0,0,0.9);

@@ -21,7 +21,7 @@ updated() {
     },
 
 created() {
-        this.$ebus.$on("reset-filter", price => {
+        this.$ebus.$on("reset-filter", () => {
             this.price = 150
         })
 }
