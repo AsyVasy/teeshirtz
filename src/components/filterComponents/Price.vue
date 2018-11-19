@@ -1,9 +1,9 @@
 <template>
     <div class="price">
         <p>Price Max</p>
-        <input type="range" min="0" max="150" v-model="price">
+        <input v-if="price == null ? price = priceMax : price = price" type="range" min="0" :max="priceMax" v-model="price"> 
         <div class="prix">
-            <input id="price" type="number" min="0" max="150" v-model="price"><p>€</p>
+            <input id="price" type="number" min="0" :max="priceMax" v-model="price"><p>€</p>
         </div>
     </div>
 </template>
@@ -12,7 +12,8 @@
 export default {
     data() {
         return {
-            price: 150
+            price: null,
+            priceMax: null
         }
         
     },    
@@ -20,9 +21,13 @@ updated() {
         this.$ebus.$emit("send-price", this.price)
     },
 
+
 created() {
         this.$ebus.$on("reset-filter", () => {
-            this.price = 150
+            this.price = this.priceMax
+        })
+        this.$ebus.$on("send-priceMax", (toto) => {
+            this.priceMax = toto
         })
 }
 }

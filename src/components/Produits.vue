@@ -26,7 +26,7 @@
 
         computed: {
             products() {
-                return this.$store.getters.displayProducts;
+               return this.$store.getters.displayProducts
             },
         },
         
@@ -36,16 +36,23 @@
                 prix : 150,
                 byBrands : [],
                 byColor: [],
-                detailWeWant: ["coucou"]
+                detailWeWant: ["coucou"],
+                priceMax: null
                 }
         },
         methods: {
-
-            test(produit) {
+             test(produit) {
                 this.detailWeWant = produit;
                 console.log(this.detailWeWant);
                 this.$router.push({name:'detail',params:{produit}})
             },
+            // test() {
+            //     console.log(this.products);
+            //     this.products.data[1].sort(function (a, b) {
+            //         return a.price - b.price
+            // })
+            //     console.log(this.products);
+            // },
 
             setDetail(produit) {
             this.detailWeWant = produit;
@@ -54,7 +61,7 @@
         },
         created() {
             this.$store.dispatch("getProducts")
-    this.$store.dispatch("getBrands")
+            this.$store.dispatch("getBrands")
 
             this.$ebus.$on("send-price", price => {
                 this.prix = price;
@@ -67,11 +74,16 @@
         },
 
         updated() {
+            this.$ebus.$emit("send-priceMax", this.priceMax)
             this.$ebus.$on("send-colorFilter", colorFilter => {
                 this.byColor = colorFilter;
             });
             
-            this.$ebus.$emit("send-detail", this.detailWeWant)
+            this.$ebus.$emit("send-detail", this.detailWeWant),
+
+
+            this.priceMax = this.products.data[1][this.products.data[1].length - 1].price
+            console.log("mon price max" + this.priceMax)
         },
         
         

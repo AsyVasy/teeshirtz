@@ -21,12 +21,19 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-
+    // sortProduct(ctx) {
+    //   ctx.state.products.data[1].sort(function (a, b) {
+    //     return a.price - b.price
+    //   })
+    // }
   },
   actions: {
     getProducts(ctx) {
       console.log("ctx", ctx)
       axios.get("http://localhost:8081/api/v1/products").then(res => {
+        res.data[1].sort(function (a, b) {
+          return a.price - b.price
+        })
         ctx.state.products = res;
         console.log("products", res);
       }).catch(err => {
