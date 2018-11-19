@@ -32,9 +32,14 @@ export default new Router({
     component: () => import('./components/Detail.vue')
   },
   {
-    path: '/list',
+    path: '/admin/products',
     name: '/list',
     component: () => import('./components/List.vue')
+  },
+  {
+    path: '/admin/products/add',
+    name: '/add',
+    component: () => import('./components/Add.vue')
   }
   ]
 })

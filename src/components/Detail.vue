@@ -1,6 +1,7 @@
 <template>
     <div class="details">
             <div class="gauche">
+                <i class="fas fa-arrow-circle-left fa-5x icon" @click="goBack"></i>
                 <img :src="this.$route.params.produit.url_image" alt="">
             </div>
             <div class="droite">
@@ -18,6 +19,11 @@
    return{
     title:"details"
    }
+  },
+  methods: {
+      goBack() {
+          this.$router.push({name:'tshirtz'})
+      }
   }
  }
 </script>
@@ -29,8 +35,14 @@
         flex-direction: row;
         .gauche {
             width: 50vw;
+            .icon {
+                cursor: pointer;
+                z-index: 1000;
+            }
             img {
-                width: 100%
+                width: 100%;
+                position: relative;
+                top: 0
             }
         }
         .droite {
@@ -39,8 +51,8 @@
             align-items: center;
             width: 50vw;
             h1 {
-    color: #42b983;
-}
+                color: #42b983;
+            }
         }
     }
 

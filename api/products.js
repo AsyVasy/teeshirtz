@@ -8,8 +8,11 @@ const productsAPi = function productsAPi(connection) {
   const productsModel = require("../model/products")(connection);
 
   router.post('/products', (req, res) => {
+    console.log(req.body);
+    console.log("capostttt");
     productsModel.create((err, dataset) => {
       res.send(dataset);
+      
     }, req.body); // post datas ici ...
   });
  

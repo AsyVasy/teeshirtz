@@ -1,8 +1,11 @@
 <template>
     <div>
         <div class="container">
-            <h2>Page admin</h2>
-            <router-link :to="`/list`" target="_blank" >List Product</router-link>
+            <h2>Admin page</h2>
+            <router-link :to="`/admin/products`">List Product</router-link> |
+            <router-link :to="`/admin/products/add`">Add Product</router-link>
+
+
         </div>
     </div>
 </template>

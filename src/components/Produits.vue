@@ -54,6 +54,7 @@
         },
         created() {
             this.$store.dispatch("getProducts")
+    this.$store.dispatch("getBrands")
 
             this.$ebus.$on("send-price", price => {
                 this.prix = price;
@@ -114,7 +115,8 @@
                     color: #42b983;;
                     transition: .5s;
                     background: rgba($color: grey, $alpha: 0.2);;
-                    border-radius: 10px
+                    border-radius: 10px;
+                    width: 100%
                 }
 
                 

@@ -5,8 +5,9 @@
 const productsModel = function productsModel(connection) {
 
   const create = function createproducts(clbk, data) {
-    const q = "INSERT INTO product (name) VALUES (?)";
-    const payload = [data.name];
+    const q = "INSERT INTO `product`(`name`, `price`, `id_brand`) VALUES (?, ?, ?)";
+    const payload = [data.name, data.price, data.brand];
+    console.log(data)
 
     connection.query(q, payload, (err, res, cols) => {
       // console.log(this.sql); // affiche la dernière requête SQL, pratique pour deboguer
